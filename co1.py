@@ -78,7 +78,8 @@ cupcakerect = pygame.Rect(400, 173, 64, 64)
 seaweed = pygame.image.load('img/seaweed.png')
 seaweedrect = pygame.Rect(301, 123, 64, 72)
 
-music = pygame.mixer.Sound('snd/safari.wav')
+music = pygame.mixer.Sound('snd/clappy.wav')
+music2 = pygame.mixer.Sound("snd/fun.wav")
 
 fonts = pygame.font.Font("font/animeace2_ital.ttf", 30)
 winningFont = pygame.font.Font("font/animeace2_bld.ttf", 72)
@@ -122,8 +123,12 @@ while gameon:
                     pufferrect.center = (193, 442)
                     squidrect.center = (602, 123)
                     mantarect.center = (111, 121)
+                    squidOnCouch = False
+                    mantaOnCouch = False
                     fruitnum = fruitnumstart
                     friendnum = friendnumstart
+                    sspeed = 1
+                    music.play()
                     level = 1
                     print("going to level ", level)
                 if quitrect.collidepoint(mousepos):
@@ -140,6 +145,10 @@ while gameon:
                     sharkrect.center = (400, 100)
                     squidrect.center = (602, 123)
                     mantarect.center = (111, 121)
+                    squidOnCouch = False 
+                    mantaOnCouch = False
+                    sspeed = 1
+                    music.play()
                     level = 1
                 if quitrect.collidepoint(mousepos):
                     gameon = False
@@ -211,11 +220,13 @@ while gameon:
             screen.blit(gameoversurface, (200, 102))
             screen.blit(playagainsurface, playagainrect)
             screen.blit(quitsurface, quitrect)
+            music.stop()
             level = 100
 
         if fruitnum == 0:
+            music.stop()
+            music2.play(-1)
             level = 2
-            print("going to level ", level)
             direction = "stop"
 
     if level == 2:
@@ -273,6 +284,7 @@ while gameon:
             screen.blit(gameoversurface, (350, 302))
             screen.blit(playagainsurface, playagainrect)
             screen.blit(quitsurface, quitrect)
+            music2.stop()
             level = 100
         
         if pufferrect.colliderect(seaweedrect):
@@ -297,13 +309,14 @@ while gameon:
                 friendnum = friendnum - 1
             mantaOnCouch = True
 
-    
+        print("friendnum = ", friendnum)
         if friendnum <= 0:
             screen.fill(yellow)
             screen.blit(winsurface, (200, 100))
             screen.blit(playagainsurface, playagainrect)
             screen.blit(quitsurface, quitrect)
             sspeed = 0
+            music2.stop()
             level = 200
 
 
