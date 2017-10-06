@@ -1,6 +1,7 @@
 import pygame
 pygame.init()
-testmode = True
+pygame.mixer.init()
+testmode = False
 
 FPS = 100
 clock = pygame.time.Clock()
@@ -77,20 +78,23 @@ cupcakerect = pygame.Rect(400, 173, 64, 64)
 seaweed = pygame.image.load('img/seaweed.png')
 seaweedrect = pygame.Rect(301, 123, 64, 72)
 
-fonts = pygame.font.Font("font/animeace2_ital.ttf", 18)
+music = pygame.mixer.Sound('snd/safari.wav')
+
+fonts = pygame.font.Font("font/animeace2_ital.ttf", 30)
 winningFont = pygame.font.Font("font/animeace2_bld.ttf", 72)
-playagainsurface = fonts.render("Play Again", False, white)
+playagainsurface = fonts.render("Play Again", False, blue)
 playagainrect = playagainsurface.get_rect(left=350, top=375)
 
-winsurface = winningFont.render("You Won!", False, white)
+winsurface = winningFont.render("You Won!", False, blue)
 
-quitsurface = fonts.render("Quit", False, white)
+quitsurface = fonts.render("Quit", False, blue)
 quitrect = quitsurface.get_rect(left=370, top=425)
 speed = 4
 lspeed = 1
 sspeed = 1
 direction = "up"
 level = 1
+music.play(-1)
 gameon = True
 
 while gameon:
@@ -114,6 +118,10 @@ while gameon:
                     leorect.center = (700, 321)
                     pineappleon = True
                     peaon = True
+                    sharkrect.center = (400, 100)
+                    pufferrect.center = (193, 442)
+                    squidrect.center = (602, 123)
+                    mantarect.center = (111, 121)
                     fruitnum = fruitnumstart
                     friendnum = friendnumstart
                     level = 1
@@ -199,8 +207,8 @@ while gameon:
         # go to game over screen
         if guffyrect.colliderect(leorect) and level == 1:
             screen.fill(pink)
-            gameoversurface = fonts.render("Game Over", False, white)
-            screen.blit(gameoversurface, (350, 302))
+            gameoversurface = winningFont.render("Game Over", False, white)
+            screen.blit(gameoversurface, (200, 102))
             screen.blit(playagainsurface, playagainrect)
             screen.blit(quitsurface, quitrect)
             level = 100
