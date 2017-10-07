@@ -76,10 +76,13 @@ cupcake = pygame.image.load("img/cupcake.png")
 cupcakerect = pygame.Rect(400, 173, 64, 64)
 
 seaweed = pygame.image.load('img/seaweed.png')
-seaweedrect = pygame.Rect(301, 123, 64, 72)
+seaweedrect = pygame.Rect(301, 83, 64, 72)
 
 music = pygame.mixer.Sound('snd/clappy.wav')
 music2 = pygame.mixer.Sound("snd/fun.wav")
+aww = pygame.mixer.Sound("snd/aww.wav")
+eating = pygame.mixer.Sound("snd/eating.wav")
+cheering = pygame.mixer.Sound("snd/cheershort.wav")
 
 fonts = pygame.font.Font("font/animeace2_ital.ttf", 30)
 winningFont = pygame.font.Font("font/animeace2_bld.ttf", 72)
@@ -197,6 +200,7 @@ while gameon:
         if pineappleon:
             if guffyrect.colliderect(pineapplerect):
                 speed = 5
+                eating.play()
                 pineappleon = False
                 fruitnum = fruitnum - 1
         if pineappleon:
@@ -205,6 +209,7 @@ while gameon:
         if peaon:
             if guffyrect.colliderect(pearect):
                 speed = 5
+                eating.play()
                 peaon = False
                 fruitnum = fruitnum - 1
         if peaon:
@@ -216,6 +221,7 @@ while gameon:
         # go to game over screen
         if guffyrect.colliderect(leorect) and level == 1:
             screen.fill(pink)
+            aww.play()
             gameoversurface = winningFont.render("Game Over", False, white)
             screen.blit(gameoversurface, (200, 102))
             screen.blit(playagainsurface, playagainrect)
@@ -280,6 +286,8 @@ while gameon:
 
         if pufferrect.colliderect(sharkrect):
             screen.fill(pink)
+            aww.play()
+            cheering.stop()
             gameoversurface = fonts.render("Game Over", False, white)
             screen.blit(gameoversurface, (350, 302))
             screen.blit(playagainsurface, playagainrect)
@@ -294,6 +302,7 @@ while gameon:
             speed = 1
 
         if pufferrect.colliderect(squidrect):
+            cheering.play()
             squidrect.centerx = 209
             squidrect.centery = 500
             if not squidOnCouch:
@@ -302,6 +311,7 @@ while gameon:
             squidOnCouch = True
 
         if pufferrect.colliderect(mantarect):
+            cheering.play()
             mantarect.centerx = 275
             mantarect.centery = 500
             if not mantaOnCouch:
